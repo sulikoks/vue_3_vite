@@ -1,10 +1,10 @@
 export default {
     bgColor: 'rgba(17, 17, 19, 1)',
     particleConfig: {
-        colors: ['rgba(255, 40, 40, 1)', 'rgba(40, 255, 40, 1)', 'rgba(40, 40, 255, 1)'],
+        colors: ['rgba(255, 40, 40, 1)', 'rgb(255, 255, 0, 1)', 'rgba(40, 40, 255, 1)'],
         radius: 3,
         count: 60,
-        maxVelocity: 0.5,
+        maxVelocity: 0.8,
     },
     lineConfig: {
         maxLength: 150,
