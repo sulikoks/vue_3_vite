@@ -9,7 +9,8 @@ export function createParticle(rootNode) {
     let w = canvas.width = innerWidth
     let h = canvas.height = innerHeight
 
-    const particles = [new Particle({ ctx, w, h, config: config.particleConfig })]
+    const cursorConfig = { ctx, w, h, config: config.cursorConfig }
+    const particles = [new Particle(cursorConfig)]
     config.particleConfig.count = Math.round((w + h) / 30)
 
     rootNode.appendChild(canvas)
