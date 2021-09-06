@@ -1,12 +1,22 @@
 <template>
-  <div ref="canvas" class="canvas"></div>
+  <div ref="canvas" class="canvas" @dblclick="fullscreen = !fullscreen" />
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue"
+import { ref, watchEffect, onMounted } from "vue"
 import { createParticle } from "../canvas/particle"
 
 const canvas = ref(null)
+const fullscreen = ref(false)
+
+watchEffect(() => {
+  if (!canvas.value || !document.fullscreenEnabled) return
+  if (fullscreen.value) {
+    canvas.value.requestFullscreen && canvas.value.requestFullscreen()
+  } else if (document.fullscreenElement) {
+    document.exitFullscreen()
+  }
+})
 
 onMounted(() => {
   console.log('-----onMounted')
