@@ -1,11 +1,11 @@
 <template>
-  <div>
-
-  </div>
+  <main>
+    <CanvasParticle />
+  </main>
 </template>
 
 <script setup>
-console.log('Hello world')
+import CanvasParticle from './components/CanvasParticle.vue'
 </script>
 
 <style lang="scss">
@@ -15,5 +15,8 @@ console.log('Hello world')
 html, body, #app {
   height: 100%;
   margin: 0;
+}
+main {
+  height: 100%;
 }
 </style>
