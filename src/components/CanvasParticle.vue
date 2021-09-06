@@ -1,5 +1,5 @@
 <template>
-  <div ref="canvas" class="canvas" @dblclick="fullscreen = !fullscreen" />
+  <div ref="canvas" class="canvas" :class="{ fullscreen }" @dblclick="fullscreen = !fullscreen" />
 </template>
 
 <script setup>
@@ -12,15 +12,17 @@ const fullscreen = ref(false)
 watchEffect(() => {
   if (!canvas.value || !document.fullscreenEnabled) return
   if (fullscreen.value) {
-    canvas.value.requestFullscreen && canvas.value.requestFullscreen()
+    !document.fullscreenElement && canvas.value.requestFullscreen()
   } else if (document.fullscreenElement) {
     document.exitFullscreen()
   }
 })
 
 onMounted(() => {
-  console.log('-----onMounted')
   createParticle(canvas.value)
+  document.onfullscreenchange = () => {
+    fullscreen.value = !!document.fullscreenElement
+  }
 })
 </script>
 
@@ -31,5 +33,8 @@ onMounted(() => {
 html, body, #app {
   height: 100%;
   margin: 0;
+}
+.fullscreen.canvas {
+  cursor: none;
 }
 </style>
