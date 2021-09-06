@@ -5,10 +5,11 @@ import MouseController from "../MouseController";
 export function createParticle(rootNode) {
     const canvas = document.createElement('canvas')
     const ctx = canvas.getContext('2d')
-    const particles = []
     const mouse = new MouseController()
     let w = canvas.width = innerWidth
     let h = canvas.height = innerHeight
+
+    const particles = [new Particle({ ctx, w, h, config: config.particleConfig })]
     config.particleConfig.count = Math.round((w + h) / 30)
 
     rootNode.appendChild(canvas)
@@ -21,6 +22,10 @@ export function createParticle(rootNode) {
     function reDrawBackground() {
         ctx.fillStyle = config.bgColor
         ctx.fillRect(0, 0, w, h)
+    }
+    function drawCursor() {
+        particles[0].x = mouse.pos.x
+        particles[0].y = mouse.pos.y
     }
     function addParticleFromMouse() {
         if (!mouse.isDown) return
@@ -61,6 +66,7 @@ export function createParticle(rootNode) {
     }
     function loop() {
         reDrawBackground()
+        drawCursor()
         addParticleFromMouse()
         reDrawParticles()
         drawLines()

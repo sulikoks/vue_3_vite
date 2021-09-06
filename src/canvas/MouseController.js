@@ -28,6 +28,8 @@ export default class MouseController {
             this.isPressed = false
             this.isDown = false
             this.isUp = true
+        } else if (e.type === 'contextmenu') {
+            e.preventDefault()
         }
     }
     update() {
