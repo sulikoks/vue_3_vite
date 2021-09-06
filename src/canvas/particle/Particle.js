@@ -3,7 +3,7 @@ export default class Particle {
      * @param {CanvasRenderingContext2D} ctx
      * @param {number} w
      * @param {number} h
-     * @param {{ color: string, radius: number, count: number, maxVelocity: number }} config
+     * @param {{ colors: string[], radius: number, count: number, maxVelocity: number }} config
      */
     constructor({ ctx, w, h, config }) {
         this.ctx = ctx
@@ -12,6 +12,7 @@ export default class Particle {
         this.config = config
         this.x = Math.random() * this.w
         this.y = Math.random() * this.h
+        this.color = this.config.colors[Math.floor(Math.random() * this.config.colors.length)]
         this.velocityX = Math.random() * (config.maxVelocity * 2) - config.maxVelocity
         this.velocityY = Math.random() * (config.maxVelocity * 2) - config.maxVelocity
     }
@@ -30,7 +31,7 @@ export default class Particle {
         this.ctx.beginPath()
         this.ctx.arc(this.x, this.y, this.config.radius, 0, Math.PI * 2)
         this.ctx.closePath()
-        this.ctx.fillStyle = this.config.color
+        this.ctx.fillStyle = this.color
         this.ctx.fill()
     }
 }

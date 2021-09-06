@@ -7,7 +7,7 @@ export function createParticle(rootNode) {
     const particles = []
     let w = canvas.width = innerWidth
     let h = canvas.height = innerHeight
-    config.particleConfig.count = Math.round((w + h) / 35)
+    config.particleConfig.count = Math.round((w + h) / 30)
 
     rootNode.appendChild(canvas)
     window.onresize = function () {
@@ -27,7 +27,7 @@ export function createParticle(rootNode) {
         })
     }
     function drawLines() {
-        let x1, y1, x2, y2, length, opacity
+        let x1, y1, x2, y2, grad, length, opacity
         for (const i in particles) {
             x1 = particles[i].x
             y1 = particles[i].y
@@ -37,11 +37,14 @@ export function createParticle(rootNode) {
                 length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
                 if (length < config.lineConfig.maxLength) {
                     opacity = 1 - length / config.lineConfig.maxLength
+                    grad = ctx.createLinearGradient(x1, y1, x2, y2);
+                    grad.addColorStop(0, changeOpacity(particles[i].color, opacity));
+                    grad.addColorStop(1, changeOpacity(particles[j].color, opacity));
                     ctx.lineWidth = config.lineConfig.width
-                    ctx.strokeStyle = config.lineConfig.color(opacity)
+                    ctx.strokeStyle = grad
                     ctx.beginPath()
                     ctx.moveTo(x1, y1)
-                    ctx.lineTo(x2,y2)
+                    ctx.lineTo(x2, y2)
                     ctx.closePath()
                     ctx.stroke()
                 }
@@ -63,4 +66,10 @@ export function createParticle(rootNode) {
         loop()
     }
     init()
+}
+
+function changeOpacity(color, opacity) {
+    const rgba = color.split(',');
+    rgba[rgba.length - 1] = `${opacity})`
+    return rgba.join(',')
 }
