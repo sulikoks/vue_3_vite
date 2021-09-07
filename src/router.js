@@ -16,10 +16,10 @@ const routes = [
             type: 'mesh'
         }
     },
-    // {
-    //     path: '*',
-    //     component: NotFoundComponent
-    // }
+    {
+        path: '/:pathMatch(.*)*',
+        component: NotFoundComponent
+    }
 ]
 
 const router = createRouter({
