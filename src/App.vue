@@ -1,6 +1,6 @@
 <template>
   <main>
-    <Router />
+    <router-view />
     <div v-if="false" class="content">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus ipsa ipsum nemo quas quo repellat reprehenderit ullam voluptates? Aliquid atque consequatur dolores error, fuga id inventore quia rem! Distinctio, perspiciatis?
     </div>
@@ -8,12 +8,7 @@
 </template>
 
 <script>
-import Router from "./Router.vue";
-
 export default {
-  components: {
-    Router
-  }
 }
 </script>
 

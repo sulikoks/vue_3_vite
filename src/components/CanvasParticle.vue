@@ -4,19 +4,15 @@
 
 <script>
 import { ref, watchEffect, onMounted } from "vue"
+import router from "../router";
 import ParticlesApp from "../canvas/particle/App"
 import MeshApp from "../canvas/mesh/App"
 
 export default {
   name: 'Canvas',
-  props: {
-    meta: String
-  },
-  setup(props) {
+  setup() {
     const canvas = ref(null)
     const fullscreen = ref(false)
-
-    console.log(props.meta)
 
     watchEffect(() => {
       if (!canvas.value || !document.fullscreenEnabled) return
@@ -28,7 +24,7 @@ export default {
     })
 
     onMounted(() => {
-      if (props.meta === 'mesh') {
+      if (router.currentRoute.value.meta.type === 'mesh') {
         new MeshApp(canvas.value)
       } else {
         new ParticlesApp(canvas.value)
