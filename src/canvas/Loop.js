@@ -23,7 +23,7 @@ export class Loop {
         this.lastUpdate = currentTime
 
         if (this.deltaTime < this.maxInterval) {
-            this.update(this.currentFrame)
+            this.update()
             this.display()
         }
     }

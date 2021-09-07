@@ -10,7 +10,7 @@ export default class App {
     constructor(container) {
         this.layer = new Layer(container)
         this.mouse = new MouseController(container)
-        this.loop = new Loop((time) => this.update(time), () => this.display())
+        this.loop = new Loop(() => this.update(), () => this.display())
 
         this.particles = new Particles({ layer: this.layer, loop: this.loop, mouse: this.mouse })
     }
