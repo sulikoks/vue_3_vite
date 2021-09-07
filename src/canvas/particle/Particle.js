@@ -1,38 +1,43 @@
 export default class Particle {
     /**
-     * @param {CanvasRenderingContext2D} ctx
      * @param {{ x: number, y: number }} pos
-     * @param {number} w
-     * @param {number} h
-     * @param {{ colors: string[], radius: number, count: number, maxVelocity: number }} config
+     * @param {Layer} layer
+     * @param {ParticleConfig} config
      */
-    constructor({ ctx, pos = {}, w, h, config }) {
-        this.ctx = ctx
-        this.w = w
-        this.h = h
+    constructor({ pos = {}, layer, config }) {
+        this.layer = layer
         this.config = config
-        this.x = pos.x || Math.random() * this.w
-        this.y = pos.y || Math.random() * this.h
+
+        this.x = pos.x || Math.random() * this.layer.w
+        this.y = pos.y || Math.random() * this.layer.h
         this.color = this.config.colors[Math.floor(Math.random() * this.config.colors.length)]
         this.velocityX = Math.random() * (config.maxVelocity * 2) - config.maxVelocity
         this.velocityY = Math.random() * (config.maxVelocity * 2) - config.maxVelocity
     }
-
-    setAreaSize({ w, h }) {
-        this.w = w
-        this.h = h
-    }
     position() {
-        (this.x + this.velocityX > this.w && this.velocityX > 0 || this.x + this.velocityX < 0 && this.velocityX < 0) && (this.velocityX *= -1);
-        (this.y + this.velocityY > this.h && this.velocityY > 0 || this.y + this.velocityY < 0 && this.velocityY < 0) && (this.velocityY *= -1);
+        this.checkOverflow()
         this.x += this.velocityX
         this.y += this.velocityY
     }
-    reDraw() {
-        this.ctx.beginPath()
-        this.ctx.arc(this.x, this.y, this.config.radius, 0, Math.PI * 2)
-        this.ctx.closePath()
-        this.ctx.fillStyle = this.color
-        this.ctx.fill()
+    checkOverflow() {
+        if(
+            this.x + this.velocityX > this.layer.w && this.velocityX > 0 ||
+            this.x + this.velocityX < 0 && this.velocityX < 0
+        ) {
+            this.velocityX *= -1
+        }
+        if(
+            this.y + this.velocityY > this.layer.h && this.velocityY > 0 ||
+            this.y + this.velocityY < 0 && this.velocityY < 0
+        ) {
+            this.velocityY *= -1
+        }
+    }
+    draw() {
+        this.layer.ctx.beginPath()
+        this.layer.ctx.arc(this.x, this.y, this.config.radius, 0, Math.PI * 2)
+        this.layer.ctx.closePath()
+        this.layer.ctx.fillStyle = this.color
+        this.layer.ctx.fill()
     }
 }

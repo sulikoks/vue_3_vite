@@ -2,7 +2,7 @@ export default class MouseController {
     /**
      * @param {Element} container
      */
-    constructor({ container = document.body } = {}) {
+    constructor(container = document.body) {
         this.container = container
         this.isPressed = false
         this.isDown = false

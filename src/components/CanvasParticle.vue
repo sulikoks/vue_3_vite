@@ -4,7 +4,7 @@
 
 <script setup>
 import { ref, watchEffect, onMounted } from "vue"
-import { createParticle } from "../canvas/particle"
+import ParticlesApp from "../canvas/particle/App"
 
 const canvas = ref(null)
 const fullscreen = ref(false)
@@ -19,7 +19,7 @@ watchEffect(() => {
 })
 
 onMounted(() => {
-  createParticle(canvas.value)
+  new ParticlesApp(canvas.value)
   document.onfullscreenchange = () => {
     fullscreen.value = !!document.fullscreenElement
   }
@@ -35,6 +35,7 @@ html, body, #app {
   margin: 0;
 }
 .canvas {
+  height: 100%;
   cursor: none;
 }
 .fullscreen.canvas {
