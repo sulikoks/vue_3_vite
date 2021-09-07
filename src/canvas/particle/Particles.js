@@ -27,9 +27,13 @@ export default class Particles {
         const cfg = { pos, layer: this.layer, config: config.particleConfig }
         this.particles.push(new Particle(cfg))
     }
-    drawParticles() {
+    updateParticles() {
         this.particles.forEach((particle) => {
             particle.position();
+        })
+    }
+    drawParticles() {
+        this.particles.forEach((particle) => {
             particle.draw();
         })
     }
@@ -71,6 +75,9 @@ export default class Particles {
     update() {
         this.updateCursorPosition()
         this.addParticleFromMouse()
+        this.updateParticles()
+    }
+    display() {
         this.drawBackground()
         this.drawLines()
         this.drawParticles()

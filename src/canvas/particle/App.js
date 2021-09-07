@@ -17,8 +17,9 @@ export default class App {
 
     update() {
         this.particles.update()
+        this.mouse.update()
     }
     display() {
-        this.mouse.update()
+        this.particles.display()
     }
 }
