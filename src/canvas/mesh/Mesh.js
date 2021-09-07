@@ -91,7 +91,7 @@ export default class Mesh {
             const hue = dist / this.maxDist * this.colorRange - this.colorTimer
 
             ctx.strokeStyle = `hsl(${hue}, 70%, 70%)`
-            ctx.fillStyle = `hsl(${hue}, 85%, 50%)`
+            ctx.fillStyle = `hsl(${hue}, 60%, 50%)`
             ctx.beginPath()
             ctx.moveTo(a.x, a.y)
             ctx.lineTo(b.x, b.y)

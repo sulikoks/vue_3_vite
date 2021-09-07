@@ -16,8 +16,8 @@ const config = {
     bgColor: 'rgba(17, 17, 19, 1)',
     // count: 60,
     particleConfig: {
-        colors: ['rgb(255,0,0, 1)', 'rgb(62,239,3, 1)', 'rgb(21,36,194, 1)', 'rgb(168,11,220, 1)'],
-        radius: 5,
+        colors: ['rgb(255,0,0, 1)', 'rgb(62,239,3, 1)', 'rgb(245,189,0, 1)', 'rgb(21,36,194, 1)', 'rgb(168,11,220, 1)'],
+        radius: 3,
         maxVelocity: 0.8,
         expTime: 60 * 10,
     },
