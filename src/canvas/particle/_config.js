@@ -5,7 +5,7 @@
 
 /**
  * @typedef LineConfig
- * @type {{color: (function(*=): string), width: number, maxLength: number}}
+ * @type {{color: (function(*=): string), maxWidth: number, maxLength: number}}
  */
 
 /**
@@ -16,8 +16,8 @@ const config = {
     bgColor: 'rgba(17, 17, 19, 1)',
     // count: 60,
     particleConfig: {
-        colors: ['rgba(255, 40, 40, 1)', 'rgb(255, 255, 0, 1)', 'rgba(40, 40, 255, 1)'],
-        radius: 3,
+        colors: ['rgb(255,0,0, 1)', 'rgb(239,121,3, 1)', 'rgb(255,226,40, 1)'],
+        radius: 5,
         maxVelocity: 0.8,
         expTime: 60 * 10,
     },
@@ -27,7 +27,7 @@ const config = {
     },
     lineConfig: {
         maxLength: 150,
-        width: 0.5,
+        maxWidth: 5,
         color: (opacity = 1) => `rgba(255, 40, 40, ${opacity})`,
     }
 }

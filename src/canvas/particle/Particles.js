@@ -59,7 +59,7 @@ export default class Particles {
     }
     drawLines() {
         const { ctx } = this.layer
-        let x1, y1, x2, y2, grad, length, opacity
+        let x1, y1, x2, y2, grad, length, opacity, width
         for (const i in this.particles) {
             x1 = this.particles[i].x
             y1 = this.particles[i].y
@@ -69,10 +69,11 @@ export default class Particles {
                 length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
                 if (length < config.lineConfig.maxLength) {
                     opacity = 1 - length / config.lineConfig.maxLength
+                    width = opacity * config.lineConfig.maxWidth
                     grad = ctx.createLinearGradient(x1, y1, x2, y2);
                     grad.addColorStop(0, changeOpacity(this.particles[i].color, opacity));
                     grad.addColorStop(1, changeOpacity(this.particles[j].color, opacity));
-                    ctx.lineWidth = config.lineConfig.width
+                    ctx.lineWidth = width
                     ctx.strokeStyle = grad
                     ctx.beginPath()
                     ctx.moveTo(x1, y1)
