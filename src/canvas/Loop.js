@@ -7,6 +7,7 @@ export class Loop {
         this.update = update
         this.display = display
 
+        this.currentFrame = 0
         this.deltaTime = 0
         this.lastUpdate = 0
         this.maxInterval = 40
@@ -17,11 +18,12 @@ export class Loop {
     animate(currentTime) {
         requestAnimationFrame(time => this.animate(time))
 
+        ++this.currentFrame
         this.deltaTime = currentTime - this.lastUpdate
         this.lastUpdate = currentTime
 
         if (this.deltaTime < this.maxInterval) {
-            this.update(this.deltaTime / 1000)
+            this.update(this.currentFrame)
             this.display()
         }
     }
