@@ -1,5 +1,5 @@
 <template>
-  <div ref="canvas" class="canvas" :class="{ fullscreen }" @dblclick="fullscreen = !fullscreen" />
+  <div ref="canvas" class="canvas" :class="{ fullscreen, 'hide-cursor': hideCursor }" @dblclick="fullscreen = !fullscreen" />
 </template>
 
 <script>
@@ -13,6 +13,7 @@ export default {
   setup() {
     const canvas = ref(null)
     const fullscreen = ref(false)
+    const hideCursor = ref(false)
 
     watchEffect(() => {
       if (!canvas.value || !document.fullscreenEnabled) return
@@ -27,6 +28,7 @@ export default {
       if (router.currentRoute.value.meta.type === 'mesh') {
         new MeshApp(canvas.value)
       } else {
+        hideCursor.value = true
         new ParticlesApp(canvas.value)
       }
       document.onfullscreenchange = () => {
@@ -36,7 +38,8 @@ export default {
 
     return {
       canvas,
-      fullscreen
+      fullscreen,
+      hideCursor
     }
   }
 }
@@ -56,8 +59,10 @@ html, body, #app {
   left: 0;
   width: 100%;
   height: 100%;
-  //cursor: none;
   background: rgba(17, 17, 19, 1);
+}
+.hide-cursor.canvas {
+  cursor: none;
 }
 .fullscreen.canvas {
 }
