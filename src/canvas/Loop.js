@@ -1,6 +1,6 @@
-export class Loop {
+export default class Loop {
     /**
-     * @param {(number) => {}} update
+     * @param {(time?:number) => {}} update
      * @param {() => {}} display
      */
     constructor(update, display) {

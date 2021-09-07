@@ -2,28 +2,48 @@
   <div ref="canvas" class="canvas" :class="{ fullscreen }" @dblclick="fullscreen = !fullscreen" />
 </template>
 
-<script setup>
+<script>
 import { ref, watchEffect, onMounted } from "vue"
 import ParticlesApp from "../canvas/particle/App"
+import MeshApp from "../canvas/mesh/App"
 
-const canvas = ref(null)
-const fullscreen = ref(false)
+export default {
+  name: 'Canvas',
+  props: {
+    meta: String
+  },
+  setup(props) {
+    const canvas = ref(null)
+    const fullscreen = ref(false)
 
-watchEffect(() => {
-  if (!canvas.value || !document.fullscreenEnabled) return
-  if (fullscreen.value) {
-    !document.fullscreenElement && canvas.value.requestFullscreen()
-  } else if (document.fullscreenElement) {
-    document.exitFullscreen()
+    console.log(props.meta)
+
+    watchEffect(() => {
+      if (!canvas.value || !document.fullscreenEnabled) return
+      if (fullscreen.value) {
+        !document.fullscreenElement && canvas.value.requestFullscreen()
+      } else if (document.fullscreenElement) {
+        document.exitFullscreen()
+      }
+    })
+
+    onMounted(() => {
+      if (props.meta === 'mesh') {
+        new MeshApp(canvas.value)
+      } else {
+        new ParticlesApp(canvas.value)
+      }
+      document.onfullscreenchange = () => {
+        fullscreen.value = !!document.fullscreenElement
+      }
+    })
+
+    return {
+      canvas,
+      fullscreen
+    }
   }
-})
-
-onMounted(() => {
-  new ParticlesApp(canvas.value)
-  document.onfullscreenchange = () => {
-    fullscreen.value = !!document.fullscreenElement
-  }
-})
+}
 </script>
 
 <style lang="scss">
@@ -35,8 +55,13 @@ html, body, #app {
   margin: 0;
 }
 .canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
-  cursor: none;
+  //cursor: none;
+  background: rgba(17, 17, 19, 1);
 }
 .fullscreen.canvas {
 }

@@ -1,5 +1,5 @@
-import {Layer} from "../Layer";
-import {Loop} from "../Loop";
+import Layer from "../Layer";
+import Loop from "../Loop";
 import Particles from "./Particles";
 import MouseController from "../MouseController";
 

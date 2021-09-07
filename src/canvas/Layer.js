@@ -1,9 +1,11 @@
-export class Layer {
+export default class Layer {
     /**
      * @param {Element} container
+     * @param {(object ?: { w: number, h: number }) => {}} onResize
      */
-    constructor(container) {
+    constructor(container , onResize = () => {}) {
         this.container = container
+        this.onResize = onResize
         this.container.appendChild(this.createLayer());
 
         addEventListener('resize', () => this.fitToContainer())
@@ -18,6 +20,7 @@ export class Layer {
     fitToContainer() {
         this.canvas.width = this.container.offsetWidth
         this.canvas.height = this.container.offsetHeight
+        this.onResize({ w: this.w, h: this.h })
     }
     get w() {
         return this.canvas.width
