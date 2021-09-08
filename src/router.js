@@ -7,13 +7,22 @@ const routes = [
     {
         path: '/',
         component: CanvasParticle,
-        meta: ''
+        meta: {
+            type: 'particles'
+        }
     },
     {
         path: '/mesh',
         component: CanvasParticle,
         meta: {
             type: 'mesh'
+        }
+    },
+    {
+        path: '/bubbles',
+        component: CanvasParticle,
+        meta: {
+            type: 'bubbles'
         }
     },
     {

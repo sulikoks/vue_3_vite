@@ -22,6 +22,10 @@ export default class Layer {
         this.canvas.height = this.container.offsetHeight
         this.onResize({ w: this.w, h: this.h })
     }
+    drawBackground(color) {
+        this.ctx.fillStyle = color
+        this.ctx.fillRect(0, 0, this.w, this.h)
+    }
     get w() {
         return this.canvas.width
     }

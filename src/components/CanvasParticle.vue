@@ -7,10 +7,19 @@ import { ref, watchEffect, onMounted } from "vue"
 import router from "../router";
 import ParticlesApp from "../canvas/particle/App"
 import MeshApp from "../canvas/mesh/App"
+import BubblesApp from "../canvas/bubbles/App"
+
+const canvasMap = {
+  bubbles: BubblesApp,
+  mesh: MeshApp,
+  particles: ParticlesApp
+}
 
 export default {
   name: 'Canvas',
   setup() {
+    const { type } = router.currentRoute.value.meta
+
     const canvas = ref(null)
     const fullscreen = ref(false)
     const hideCursor = ref(false)
@@ -25,12 +34,9 @@ export default {
     })
 
     onMounted(() => {
-      if (router.currentRoute.value.meta.type === 'mesh') {
-        new MeshApp(canvas.value)
-      } else {
-        hideCursor.value = true
-        new ParticlesApp(canvas.value)
-      }
+      new canvasMap[type](canvas.value)
+      hideCursor.value = ['particles', 'bubbles'].includes(type)
+
       document.onfullscreenchange = () => {
         fullscreen.value = !!document.fullscreenElement
       }
